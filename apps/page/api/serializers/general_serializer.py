@@ -1,4 +1,4 @@
-from apps.page.models import Banner, Infraestructura
+from apps.page.models import Banner, Landing_Page
 
 from rest_framework import serializers
 
@@ -32,12 +32,12 @@ class BannerSerializer(serializers.ModelSerializer):
         model = Banner
         fields = '__all__'
 
-class InfraestructuraSerializer(serializers.ModelSerializer):
+class LandingSerializer(serializers.ModelSerializer):
     imagen = serializers.SerializerMethodField()
     def get_imagen(self, obj):
         return str(obj.imagen)
 
     class Meta:
-        model = Infraestructura
+        model = Landing_Page
         fields = '__all__'
         
