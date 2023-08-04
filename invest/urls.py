@@ -21,5 +21,5 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('apps.page.api.routers')),
+    path('invest/',include('apps.page.api.routers')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

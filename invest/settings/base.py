@@ -110,7 +110,9 @@ USE_TZ = True
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:8000",
-    "http://localhost:3000"
+    "http://localhost:3000",
+"https://sedec.gob.mx",
+"https://invest.tabasco.gob.mx"
 ]
 
 
@@ -127,4 +129,3 @@ STATICFILES_DIRS = (BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-print(MEDIA_URL)
