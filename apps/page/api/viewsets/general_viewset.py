@@ -1,11 +1,26 @@
+from django.shortcuts import render
 from rest_framework import viewsets
-from apps.page.models import Banner
-from apps.page.api.serializers.general_serializer import BannerSerializer
+from apps.page.models import Banner, Landing_Page
+from apps.page.api.serializers.general_serializer import BannerSerializer, LandingSerializer
 
 class BannerViewSet(viewsets.ModelViewSet):
     queryset = Banner.objects.all()
     serializer_class = BannerSerializer
 
+# class IndexViewSet(viewsets.ViewSet):
+#     def list(self, request):
+#         banners = Banner.objects.all()
+#         landing_pages = Landing_Page.objects.all()
+
+#         banner_serializer = BannerSerializer(banners, many=True)
+#         landing_page_serializer = LandingSerializer(landing_pages, many=True)
+
+#         data = {
+#             'banners': banner_serializer.data,
+#             'landing_pages': landing_page_serializer.data
+#         }
+
+#         return render(request, 'page/index.html', {'data': data})
 
 # from rest_framework import viewsets, status
 # from rest_framework.decorators import action

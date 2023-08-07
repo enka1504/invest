@@ -19,7 +19,17 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
+from rest_framework.routers import DefaultRouter
+
+from apps.page.api.viewsets.page_viewset import IndexViewSet
+
+router = DefaultRouter()
+router.register(r'home', IndexViewSet, basename='home')
+
 urlpatterns = [
+    #path('api', include(router.urls)),
+    #path('api/', include(router.urls)),
+    path('api/home/', IndexViewSet.as_view(), name='index'),
     path('admin/', admin.site.urls),
     path('invest/',include('apps.page.api.routers')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
