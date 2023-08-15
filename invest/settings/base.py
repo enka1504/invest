@@ -111,8 +111,9 @@ USE_TZ = True
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:8000",
     "http://localhost:3000",
-"https://sedec.gob.mx",
-"https://invest.tabasco.gob.mx"
+    "https://sedec.tabasco.gob.mx",
+    "https://invest.tabasco.gob.mx",
+    "http://siisdet.mx",
 ]
 
 

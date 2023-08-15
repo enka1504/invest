@@ -8,6 +8,6 @@ router.register(r'banners', BannerViewSet)
 
 #urlpatterns = router.urls
 urlpatterns = [
-    path('api/banners/', BannerViewSet.as_view(), name='banner-list'),
-    path('api/page/', PageViewSet.as_view(), name='page-list'),
+    path('banners/', BannerViewSet.as_view(), name='banner-list'),
+    path('page/', PageViewSet.as_view(), name='page-list'),
 ]
