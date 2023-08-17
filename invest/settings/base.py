@@ -111,8 +111,8 @@ USE_TZ = True
 #settings correo
 EMAIL_BACKEND = config('USER_BACKEND')
 EMAIL_HOST = config('USER_HOST') 
-EMAIL_PORT = 587  
-EMAIL_USE_TLS = True
+EMAIL_PORT = config('USER_PORT', default=587, cast=int)
+EMAIL_USE_TLS = config('USER_USE_TLS', default=True, cast=bool)
 EMAIL_HOST_USER = config('USER_EMAIL')
 EMAIL_HOST_PASSWORD = config('USER_PASSWORD')
 
