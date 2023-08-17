@@ -1,7 +1,4 @@
-import smtplib
-from smtplib import SMTPException
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
@@ -16,38 +13,33 @@ class PageViewSet(ListAPIView):
     queryset = Landing_Page.objects.all()
     serializer_class = LandingSerializer
 
-class ContactCreateView(generics.CreateAPIView):
-    queryset = ContactMessage.objects.all()
-    serializer_class = ContactSerializer
-
+class ContactView(APIView):
     def post(self, request, *args, **kwargs):
-        response = super().post(request, *args, **kwargs)
-        
-        # Enviar el correo electrónico
         try:
-            email = request.data['email']
-            name = request.data['name']
-            subject = 'Nuevo mensaje de contacto'
-            message = f'Nombre: {name}\nCorreo: {email}\n\n{request.data["message"]}'
-            
-            msg = MIMEMultipart()
-            msg['From'] = request.data['email']
-            msg['To'] = settings.EMAIL_HOST_USER  # Tu correo institucional
-            msg['Subject'] = subject
-            msg.attach(MIMEText(message, 'plain'))
-            
-            server = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
-            server.starttls()
-            server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
-            server.sendmail(settings.EMAIL_HOST_USER, msg['To'], msg.as_string())
-            server.quit()
-        
-        except SMTPException as e:
-            error_message = 'Ocurrió un problema al enviar el mensaje. Por favor, inténtelo de nuevo más tarde.'
-            print('Hola desde la excepcion')
-            print(f'Error al enviar correo electrónico: {e}')
-            
-            # Devolver una respuesta de error al cliente
-            return Response({'error': error_message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            subject = request.data.get('subject', '')
+            message = request.data.get('message', '')
+            from_email = request.data.get('email', '')
 
-        
+            # Enviar correo
+            send_mail(
+                subject,
+                message,
+                from_email,
+                ['invest.sedec@tabasco.gob.mx'],
+                fail_silently=False,
+            )
+
+            # Guardar mensaje en el modelo
+            contact_message = ContactMessage(
+                name=request.data.get('name', ''),
+                email=from_email,
+                subject=subject,
+                message=message
+            )
+            contact_message.save()
+
+            return Response({'message': 'Correo enviado correctamente'}, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            print(e)
+            return Response({'error': 'Error al enviar el correo'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
