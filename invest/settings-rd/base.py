@@ -107,14 +107,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-#settings correo
-EMAIL_BACKEND = config('USER_BACKEND')
-EMAIL_HOST = config('USER_HOST') 
-EMAIL_PORT = 587  
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config('USER_EMAIL')
-EMAIL_HOST_PASSWORD = config('USER_PASSWORD')
-DEFAULT_FROM_EMAIL = config('USER_DEFAULT_EMAIL')
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:8000",
