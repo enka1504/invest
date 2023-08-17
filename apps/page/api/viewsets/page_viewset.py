@@ -1,4 +1,5 @@
 import smtplib
+from smtplib import SMTPException
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from django.conf import settings
@@ -41,12 +42,10 @@ class ContactCreateView(generics.CreateAPIView):
             server.sendmail(settings.EMAIL_HOST_USER, msg['To'], msg.as_string())
             server.quit()
         
-        except Exception as e:
+        except SMTPException as e:
             error_message = 'Ocurrió un problema al enviar el mensaje. Por favor, inténtelo de nuevo más tarde.'
             print('Hola desde la excepcion')
             print(f'Error al enviar correo electrónico: {e}')
-            # Enviar un correo electrónico de error
-            #send_error_email(f'Error al enviar correo electrónico: {str(e)}')
             
             # Devolver una respuesta de error al cliente
             return Response({'error': error_message}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
