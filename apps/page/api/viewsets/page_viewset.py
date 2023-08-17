@@ -43,6 +43,7 @@ class ContactCreateView(generics.CreateAPIView):
         
         except Exception as e:
             error_message = 'Ocurrió un problema al enviar el mensaje. Por favor, inténtelo de nuevo más tarde.'
+            print('Hola desde la excepcion')
             print(f'Error al enviar correo electrónico: {e}')
             # Enviar un correo electrónico de error
             #send_error_email(f'Error al enviar correo electrónico: {str(e)}')
