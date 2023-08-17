@@ -1,4 +1,4 @@
-from apps.page.models import Banner, Landing_Page
+from apps.page.models import Banner, Landing_Page, ContactMessage
 
 from rest_framework import serializers
 
@@ -39,5 +39,10 @@ class LandingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Landing_Page
+        fields = '__all__'
+
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactMessage
         fields = '__all__'
         
