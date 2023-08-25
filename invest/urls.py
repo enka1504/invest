@@ -29,6 +29,6 @@ from rest_framework.routers import DefaultRouter
 urlpatterns = [
     #path('api', include(router.urls)),
     #path('api/', include(router.urls)),
-    path('admin/', admin.site.urls),
+    path('api/admin/', admin.site.urls),
     path('api/',include('apps.page.api.routers')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
